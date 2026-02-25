@@ -1,0 +1,25 @@
+<div class="card h-100">
+  <div class="card-header">{{ trip.name }}</div>
+
+  <img
+    [src]="'http://localhost:3000' + trip.image"
+    alt="trip thumbnail"
+    class="card-img-top"
+    (error)="$event.target.src='http://localhost:3000/images/logo.png'"
+  />
+
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">{{ trip.resort }}</h6>
+
+    <p class="card-subtitle mt-3 mb-3 text-muted">
+      {{ trip.length }} only {{ trip.perPerson | currency:'USD':'symbol' }} per person
+    </p>
+
+    <p class="card-text" [innerHTML]="trip.description"></p>
+  </div>
+
+  <div class="card-footer">
+    <button class="btn btn-warning btn-sm" (click)="editTrip()" *ngIf="isLoggedIn">Edit</button>
+    <span *ngIf="!isLoggedIn" class="text-muted small">Login to edit</span>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Trip } from '../models/trip';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TripDataService {
+  private apiRoot = '/api';
+
+  constructor(private http: HttpClient) {}
+
+  getTrips(): Observable<Trip[]> {
+    return this.http.get<any[]>(`${this.apiRoot}/trips`)
+      .pipe(
+        map((raw: any[]) => (raw || []).map(t => {
+          const imageRaw = String(t.image ?? '');
+          const image = imageRaw.replace(/^\/+images\/|^\/+/, ''); // "reef1.jpg"
+          const description = ((t.description1 ?? '') + '\n\n' + (t.description2 ?? '')).trim();
+          return {
+            id: t.id,
+            name: t.title ?? t.name ?? `Trip ${t.id ?? ''}`,
+            description: description || 'No description provided',
+            image,
+            link: t.link,
+            resort: t.resort ?? 'Unknown Resort',
+            length: t.length ?? '4 nights / 5 days',
+            perPerson: typeof t.perPerson === 'number' ? t.perPerson : (parseFloat(String(t.perPerson ?? '')) || 0)
+          } as Trip;
+        }))
+      );
+  }
+}

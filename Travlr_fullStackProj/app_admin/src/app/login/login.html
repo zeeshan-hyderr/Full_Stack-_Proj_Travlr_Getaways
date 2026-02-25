@@ -1,0 +1,21 @@
+<div class="card mx-auto" style="max-width:420px">
+  <div class="card-body">
+    <h5 class="card-title">Admin Login</h5>
+
+    <form (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" [(ngModel)]="email" name="email" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <button class="btn btn-primary" type="submit" [disabled]="loading">{{ loading ? 'Logging in...' : 'Login' }}</button>
+    </form>
+  </div>
+</div>

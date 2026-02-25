@@ -1,0 +1,19 @@
+<h3>Trip Listing</h3>
+
+<div class="text-end mb-3">
+  <button class="btn btn-primary" (click)="addTrip()">Add Trip</button>
+</div>
+
+<ng-container *ngIf="(trips$ | async) as trips; else loading">
+  <p>Total trips: {{ trips.length }}</p>
+
+  <div class="row g-3" *ngIf="trips.length > 0">
+    <div *ngFor="let trip of trips" class="col-12 col-md-4 col-lg-3">
+      <app-trip-card [trip]="trip" class="h-100"></app-trip-card>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading trips...</p>
+</ng-template>

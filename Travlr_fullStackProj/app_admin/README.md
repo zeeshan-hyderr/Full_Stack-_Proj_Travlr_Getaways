@@ -1,4 +1,4 @@
-# TravlrAdmin # MohammedAlshehabi 
+# TravlrAdmin # 
 # follow commnads on lines 58-70 for better approach
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
